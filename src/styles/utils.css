@@ -1,0 +1,41 @@
+.button {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: .9rem;
+  background: white;
+  border-radius: .6rem;
+  padding: .8rem 1rem;
+  font-weight: 500;
+}
+
+.button:hover {
+  cursor: pointer;
+  background: var(--hoverColor);
+  transition: all ease-in 0.3s;
+}
+
+.button i {
+  font-size: 1.2rem;
+}
+
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --gap1: .5rem;
+    --gutter: 1rem;
+  }
+
+  .desktop_only {
+    display: none !important;
+  }
+
+}
+
+@media only screen and (min-width: 600px) {
+  .mobile_only {
+    display: none !important;
+  }
+}
