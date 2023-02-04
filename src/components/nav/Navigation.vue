@@ -5,7 +5,7 @@
 <template>
   <nav class="navigation">
     <div class="space_between">
-      <h1>RADIANCE</h1>
+      <h1><RouterLink to="/">RADIANCE</RouterLink></h1>
       <div class="row_flex_end">
         <button class="button">
           <i class="fal fa-wallet"></i>
