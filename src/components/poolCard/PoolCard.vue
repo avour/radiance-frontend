@@ -1,11 +1,12 @@
 <script setup lang="ts">
 defineProps<{
-  token1Image: object,
-  token2Image: object,
+  token1Image: string,
+  token2Image: string,
   pairName: string,
   apr: number,
   supply: string
 }>()
+
 </script>
 
 

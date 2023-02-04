@@ -1,7 +1,27 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import PoolCard from "./PoolCard.vue";
 
-defineProps<{ sectionTitle: string, poolData: object }>()
+export interface Pool {
+  id: number
+  apr: number
+  supply: string
+  name: string
+  image1: string
+  image2: string
+
+}
+
+const router = useRouter()
+
+defineProps<{ sectionTitle: string, poolData: Pool[] }>()
+
+const onTapPool = (pool: Pool) => {
+  router.push({
+      name: 'pool-details',
+      params: { id: pool.id, title: pool.name.replaceAll(/[^a-zA-Z0-9 ]/g,'').toLowerCase() },
+    });
+  }
 </script>
 
 
@@ -11,13 +31,14 @@ defineProps<{ sectionTitle: string, poolData: object }>()
   </div>
   <section class="pool_card_container">
     <PoolCard
-        v-for="pool in poolData"
-        :key="pool"
+        v-for="pool, i in poolData"
+        :key="i"
         :apr="pool.apr"
         :supply="pool.supply"
-        :pair-name="pool.name"
-        :token1-image="pool.image1"
-        :token2-image="pool.image2"
+        :pairName="pool.name"
+        :token1Image="pool.image1"
+        :token2Image="pool.image2"
+        @click="onTapPool(pool)"
     />
   </section>
 </template>

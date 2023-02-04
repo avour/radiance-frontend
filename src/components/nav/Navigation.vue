@@ -24,7 +24,7 @@
   nav.navigation {
     padding: .4rem var(--gutter);
     background: var(--primaryColor);
-    width: calc(100% - calc(var(--gutter) * 2));
+    width: 100%;
   }
 
   .space_between div {
