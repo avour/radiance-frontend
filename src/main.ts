@@ -6,4 +6,9 @@ import './style.css'
 import "./styles/input.css"
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import "solana-wallets-vue/styles.css";
+import { SolanaWallets, walletOptions } from "./plugins/SolanaWallet"
+
+createApp(App)
+    .use(SolanaWallets, walletOptions)
+    .mount('#app')
