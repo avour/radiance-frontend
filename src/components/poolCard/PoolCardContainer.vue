@@ -26,29 +26,31 @@ const onTapPool = (pool: Pool) => {
 
 
 <template>
-  <div class="section_title">
-    <h2>{{sectionTitle}}</h2>
+  <div>
+    <div class="section_title">
+      <h2>{{sectionTitle}}</h2>
+    </div>
+    <section class="pool_card_container">
+      <PoolCard
+          v-for="pool, i in poolData"
+          :key="i"
+          :apr="pool.apr"
+          :supply="pool.supply"
+          :pairName="pool.name"
+          :token1Image="pool.image1"
+          :token2Image="pool.image2"
+          @click="onTapPool(pool)"
+      />
+    </section>
   </div>
-  <section class="pool_card_container">
-    <PoolCard
-        v-for="pool, i in poolData"
-        :key="i"
-        :apr="pool.apr"
-        :supply="pool.supply"
-        :pairName="pool.name"
-        :token1Image="pool.image1"
-        :token2Image="pool.image2"
-        @click="onTapPool(pool)"
-    />
-  </section>
 </template>
 
 
 <style scoped>
   .section_title {
     color: black;
-    margin-top: var(--gap1);
-    padding: .5rem var(--gutter);
+    /* margin-top: var(--gap1); */
+    /* padding: .5rem var(--gutter); */
   }
 
   .pool_card_container {
@@ -56,6 +58,6 @@ const onTapPool = (pool: Pool) => {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 0 var(--gutter) 2rem;
+    /* padding: 0 var(--gutter) 2rem; */
   }
 </style>

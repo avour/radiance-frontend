@@ -5,7 +5,23 @@ import USDC from "../../assets/usd-coin.png"
 
 
 <template>
-  <div class="table_pool_card">
+  <tr class="hover:tw-bg-gray-200/20 tw-text-sm tw-rounded-full">
+    <td class="tw-py-3">
+      <span class="tw-flex tw-gap-2 tw-items-center">
+        <span class="flex_row_center">
+          <span class="cardBackground tw-w-8 tw-h-8 tw-p-1 tw-rounded-full"><img :src="Sol"></span>
+          <span class="cardBackground tw-w-8 tw-h-8 tw-p-1 tw-rounded-full"><img :src="USDC"></span>
+        </span>
+        <span>SOL/USDT</span>
+      </span>
+    </td>
+    <td class="tw-py-3">$4,724,544</td>
+    <td class="tw-py-3">$124,544</td>
+    <td class="tw-py-3">8.7%</td>
+    <td class="tw-py-3">11.92%</td>
+    <td><button><span><i class="fal fa-ellipsis"></i></span></button></td>
+  </tr>
+  <!-- <div class="table_pool_card">
     <div class="table_headers flex_row">
       <div class="pool_name flex_row">
         <div class="flex_row_center">
@@ -27,7 +43,7 @@ import USDC from "../../assets/usd-coin.png"
         <h5>11.92%</h5>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 
@@ -37,10 +53,22 @@ import USDC from "../../assets/usd-coin.png"
     margin: 0;
   }
 
+  td:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+   }
+  td:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+   }
+
+  tr:first-child td { border-top-style: solid; }
+  tr td:first-child { border-left-style: solid; }
+
   .table_pool_card {
     padding: 1.5rem 1rem;
     border-radius: var(--radius);
-    width: calc(100% - 2rem);
+    // width: calc(100% - 2rem);
     background: rgba(0, 0, 0, 0.34);
   }
 

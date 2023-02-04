@@ -1,13 +1,32 @@
 <script setup lang="ts">
-// defineProps<{ msg: string }>()
+  import DataTable from 'datatables.net-vue3';
 </script>
 
 
 <template>
-  <div class="table_container">
-    <div class="table">
+  <div  class="tw-w-full">
+    <DataTable
+      :options="{ search: true }"
+      class="display tw-table-auto tw-border-collapse tw-w-full"
+    >
+      <thead class="tw-border-b-2 tw-text-gray-100" align="left">
+        <th>Pool Name</th>
+        <th>Liquidity</th>
+        <th>Volume</th>
+        <th>Fees</th>
+        <th>APR</th>
+        <th></th>
+      </thead>
 
-      <div class="space_between">
+      <tbody class="tw-text-gray-200">
+        <slot></slot>
+      </tbody>
+    </DataTable>
+  </div>
+  <!-- <div class="table_container">
+    <div class="table tw-w-full tw-p-12">
+
+      <div class="tw-flex tw-justify-between">
         <div class="flex_column title">
           <h2>Lending Pools</h2>
           <p>Earn yield on trading fees by providing liquidity</p>
@@ -19,8 +38,8 @@
         </div>
       </div>
 
-      <div class="table_headers space_between">
-        <div class="pool_name flex_row_center">
+      <div class="table_headers tw-flex tw-justify-between tw-mb-2">
+        <div class="pool_name">
           <h5>Pool Name</h5>
         </div>
         <div class="supply">
@@ -37,15 +56,15 @@
         </div>
         <div>
           <h5>Borrow APR</h5>
-          <i class="fad fa-sort-up"></i>
+          <i class="fad fa-sort-up#/pool/pools"></i>
         </div>
       </div>
 
-      <div class="cards flex_column">
+      <div class="tw-flex tw-flex-col tw-gap-y-2">
         <slot />
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 
@@ -53,18 +72,6 @@
   h2, h5, p {
     padding: 0;
     margin: 0;
-  }
-
-  .table_container {
-    padding: var(--gutter);
-    width: calc(100% - var(--gutter) * 2);
-  }
-
-  .table {
-    padding: 2rem var(--gutter);
-    min-height: 30vh;
-    border-radius: var(--radius);
-    background: var(--primaryColor);
   }
 
   .table {
@@ -84,7 +91,7 @@
     margin-top: 2rem;
     border-radius: var(--smRadius);
     background: rgba(0, 0, 0, 0.12);
-    width: calc(100% - 4rem);
+    // width: calc(100% - 4rem);
     padding: 1rem 2rem;
     color: var(--darkText);
 
@@ -100,7 +107,7 @@
     > div {
       display: flex;
       //justify-content: center;
-      width: calc(17% - .5rem);
+      // width: calc(17% - .5rem);
     }
 
     div {
@@ -108,10 +115,6 @@
       align-items: center;
       display: flex;
     }
-  }
-
-  .cards {
-    margin-top: 1rem;
   }
 
   @media only screen and (max-width: 600px) {
