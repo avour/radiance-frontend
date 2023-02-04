@@ -12,7 +12,7 @@ import USDC from "../../assets/usd-coin.png"
           <img :src="Sol" width="34" alt="token" />
           <img :src="USDC" width="34" alt="token" />
         </div>
-        <h4>SOL/USD</h4>
+        <h5 class="name">SOL/USD</h5>
       </div>
       <div class="supply">
         <h5>$4,724,544</h5>
@@ -32,7 +32,7 @@ import USDC from "../../assets/usd-coin.png"
 
 
 <style scoped lang="scss">
-  h2, h4, h5, p {
+  h2, h5, p {
     padding: 0;
     margin: 0;
   }
@@ -71,7 +71,7 @@ import USDC from "../../assets/usd-coin.png"
   }
 
   .pool_name {
-    h4 {
+    h5.name {
       top: .1rem;
       left: -.8rem;
       position: relative;
@@ -111,7 +111,7 @@ import USDC from "../../assets/usd-coin.png"
 
       > div:first-of-type {
         width: 60% !important;
-        h4 {
+        h5.name {
           left: -1rem;
         }
       }

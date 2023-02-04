@@ -26,6 +26,7 @@ defineProps<{ sectionTitle: string, poolData: object }>()
 <style scoped>
   .section_title {
     color: black;
+    font-size: .9rem;
     margin-top: var(--gap1);
     padding: .5rem var(--gutter);
   }

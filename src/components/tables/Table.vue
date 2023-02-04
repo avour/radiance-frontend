@@ -6,7 +6,6 @@
 <template>
   <div class="table_container">
     <div class="table">
-
       <div class="space_between">
         <div class="flex_column title">
           <h2>Lending Pools</h2>
