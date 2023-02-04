@@ -4,6 +4,7 @@ import "./styles/flex.css"
 import "./styles/utils.css"
 import './style.css'
 import "./styles/input.css"
+import "./styles/fonts.css"
 import App from './App.vue'
 
 import "solana-wallets-vue/styles.css";
