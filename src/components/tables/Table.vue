@@ -4,7 +4,7 @@
 
 
 <template>
-  <div  class="tw-w-full">
+  <div class="tw-w-full">
     <DataTable
       :options="{ search: true }"
       class="display tw-table-auto tw-border-collapse tw-w-full"
