@@ -55,6 +55,7 @@ const onTapPool = (pool: Pool) => {
     gap: var(--gap1);
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
     padding: 0 var(--gutter) 2rem;
   }
 </style>
