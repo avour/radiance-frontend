@@ -1,0 +1,23 @@
+.input_container {
+  position: relative;
+}
+
+.input_container i {
+  color: var(--primaryColor);
+  top: .7rem;
+  left: .6rem;
+  font-size: .9rem;
+  position: absolute;
+}
+
+.input {
+  padding: .6rem .5rem .6rem 2rem;
+  border-radius: var(--smRadius);
+  border: 1px solid var(--hoverColor);
+  background: var(--hoverColor);
+}
+
+.input:focus {
+  font-weight: bold;
+  outline: none;
+}
