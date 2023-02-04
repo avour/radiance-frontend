@@ -21,7 +21,7 @@ const routes = [
                 path: '/pool/:id/:title',
                 name: 'pool-details',
                 props: true,
-                component: () => import('../pages/LiquidSwap.vue')
+                component: () => import('../pages/PoolDetails.vue')
             }
         ]
     },
