@@ -8,9 +8,14 @@ import router from "./router/router"
 import App from './App.vue'
 
 import "solana-wallets-vue/styles.css";
-import { SolanaWallets, walletOptions } from "./plugins/SolanaWallet"
+import 'vue3-toastify/dist/index.css';
+import Vue3Toasity from 'vue3-toastify';
 
 const app = createApp(App)
 app.use(router)
-app.use(SolanaWallets, walletOptions)
+app.use(Vue3Toasity,
+{
+    autoClose: 3000,
+    // ...
+})
 app.mount('#app')
