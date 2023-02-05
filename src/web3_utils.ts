@@ -33,7 +33,7 @@ interface PDAParameters {
 }
 
 
-export const getPdaParams = async (workspace: IWorkspace, poolId: number, serum_market: PublicKey): Promise<PDAParameters> => {
+export const getPdaParams = async (workspace: IWorkspace, poolId: number, serum_market: PublicKey, borrowableBaseMint?: PublicKey, borrowableQuoteMint?: PublicKey): Promise<PDAParameters> => {
     const { program, wallet } = workspace;
 
     const uid = new anchor.BN(poolId.toString());
@@ -55,11 +55,11 @@ export const getPdaParams = async (workspace: IWorkspace, poolId: number, serum_
     );
 
     let [borrowableBaseVault,] = await PublicKey.findProgramAddressSync(
-        [anchor.utils.bytes.utf8.encode("borrowable_vault"), serum_market.toBuffer(), BORROWABLE_BASE_MINT.toBuffer(), uidBuffer], program.value.programId,
+        [anchor.utils.bytes.utf8.encode("borrowable_vault"), serum_market.toBuffer(), borrowableBaseMint?.toBuffer() ?? BORROWABLE_BASE_MINT.toBuffer(), uidBuffer], program.value.programId,
     );
 
     let [borrowableQuoteVault,] = await PublicKey.findProgramAddressSync(
-        [anchor.utils.bytes.utf8.encode("borrowable_vault"), serum_market.toBuffer(), BORROWABLE_BASE_MINT.toBuffer(), uidBuffer], program.value.programId,
+        [anchor.utils.bytes.utf8.encode("borrowable_vault"), serum_market.toBuffer(), borrowableQuoteMint?.toBuffer() ?? BORROWABLE_BASE_MINT.toBuffer(), uidBuffer], program.value.programId,
     );
 
 
@@ -72,13 +72,13 @@ export const getPdaParams = async (workspace: IWorkspace, poolId: number, serum_
     }
 }
 
-export const createUserAssociatedTokenAccount = async (workspace: IWorkspace, mint: anchor.web3.Keypair): Promise<anchor.web3.PublicKey> => {
+export const createUserAssociatedTokenAccount = async (workspace: IWorkspace, mint: PublicKey): Promise<anchor.web3.PublicKey> => {
     const { provider, wallet } = workspace;
 
     let userAssociatedTokenAccount: anchor.web3.PublicKey;
 
     userAssociatedTokenAccount = await getAssociatedTokenAddress(
-        mint.publicKey,
+        mint,
         wallet.value!.publicKey
     )
 
@@ -89,7 +89,7 @@ export const createUserAssociatedTokenAccount = async (workspace: IWorkspace, mi
             wallet.value!.publicKey,
             userAssociatedTokenAccount,
             wallet.value!.publicKey,
-            mint.publicKey,
+            mint,
         ))
         await provider.value!.sendAndConfirm!(tx1);
 

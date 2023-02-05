@@ -11,7 +11,7 @@
     <PoolCardContainer
         class="tw-mb-12"
         :poolData="poolData"
-        sectionTitle="Trending Pools"
+        sectionTitle="Top Trending Pools"
     />
 
     <GlowContainer class="tw-rounded-[21.2px] tw-p-[1.1px]">
