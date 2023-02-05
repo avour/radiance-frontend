@@ -70,7 +70,10 @@
   <!-- <div class="table_container">
     <div class="table tw-w-full tw-p-12">
 
-      <div class="tw-flex tw-justify-between">
+  <div class="table_container">
+    <div class="table">
+
+      <div class="space_between">
         <div class="flex_column title">
           <h2>Lending Pools</h2>
           <p>Earn yield on trading fees by providing liquidity</p>
@@ -82,8 +85,8 @@
         </div>
       </div>
 
-      <div class="table_headers tw-flex tw-justify-between tw-mb-2">
-        <div class="pool_name">
+      <div class="table_headers space_between">
+        <div class="pool_name flex_row_center">
           <h5>Pool Name</h5>
         </div>
         <div class="supply">
@@ -100,15 +103,15 @@
         </div>
         <div>
           <h5>Borrow APR</h5>
-          <i class="fad fa-sort-up#/pool/pools"></i>
+          <i class="fad fa-sort-up"></i>
         </div>
       </div>
 
-      <div class="tw-flex tw-flex-col tw-gap-y-2">
+      <div class="cards flex_column">
         <slot />
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 
