@@ -20,9 +20,9 @@
     "solana-wallets-vue": "^0.5.2",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",
+    "vue-universal-modal": "^1.1.4",
     "vue3-easy-data-table": "^1.5.30",
     "vue3-tabs-component": "^1.2.0",
-    "vue-universal-modal": "^1.1.4",
     "vue3-toastify": "^0.0.6"
   },
   "devDependencies": {

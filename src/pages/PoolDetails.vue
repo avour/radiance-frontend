@@ -12,7 +12,6 @@ import { TOKEN_PROGRAM_ID } from "@project-serum/anchor/dist/cjs/utils/token";
 import * as anchor from "@project-serum/anchor";
 import { toast } from 'vue3-toastify';
 import { onMounted } from 'vue';
-import * as RaydianceType from '../idl/raydiance';
 
 
 import { ref } from 'vue';
