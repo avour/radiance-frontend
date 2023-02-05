@@ -71,7 +71,7 @@ defineProps<{
 }
 
 .pool_image {
-  padding-left: 1.7rem;
+  padding-left: 1.2rem;
 }
 
 .pool_image img {
@@ -86,7 +86,7 @@ defineProps<{
 
 .pool_image img:last-of-type {
   position: relative;
-  left: -2.5rem;
+  left: -1.5rem;
 }
 
 .pool_image img {

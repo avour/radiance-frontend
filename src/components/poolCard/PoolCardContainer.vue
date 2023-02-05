@@ -82,6 +82,7 @@ const onTapPool = async (pool: Pool) => {
     <div class="section_title">
       <h2>{{sectionTitle}}</h2>
     </div>
+
     <section class="pool_card_container">
       <PoolCard
           v-for="pool, i in poolData"

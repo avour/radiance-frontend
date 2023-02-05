@@ -95,7 +95,7 @@
     background: rgba(0, 0, 0, 0.12);
     // width: calc(100% - 4rem);
     padding: 1rem 2rem;
-    color: var(--darkText);
+    color: white;
 
     h5 {
       font-size: .9rem;
