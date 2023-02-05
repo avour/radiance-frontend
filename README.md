@@ -82,6 +82,25 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
+# Radiance 
+
+Radiance is a permissionless lending market that offers a unique solution to the problems of impermanent loss and lost collateral opportunity in the DeFi space. 
+
+## Features 
+
+- Use LP tokens as collateral to borrow other tokens 
+- Earn yield by lending tokens to borrowers 
+- Reduce risk of impermanent loss 
+- Borrowers can leverage their LP tokens to lock up assets and increase their yield 
+
+## Why Radiance 
+
+Impermanent loss is a major concern in the DeFi lending market, deterring many risk-averse investors from entering the market. Radiance solves this problem by offering a platform where LP tokens can be used as collateral to borrow other tokens, reducing the risk of impermanent loss and earning yield in the process. Borrowers can also leverage their LP tokens to lock up assets and increase their yield.
+
+## Vision 
+
+Radiance aims to become the world's top lending marketplace based on LP tokens, solving the problems of lost collateral opportunity and impermanent loss in the current LP market. Join us on our mission to revolutionize the DeFi lending market.
+
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
