@@ -27,8 +27,8 @@ const onTapPool = (pool: Pool) => {
 
 <template>
   <div>
-    <div class="section_title">
-      <h2>{{sectionTitle}}</h2>
+    <div class="section_title tw-mb-3">
+      <h2 class="tw-text-xl tw-font-bold tw-text-white">{{sectionTitle}}</h2>
     </div>
     <section class="pool_card_container">
       <PoolCard
@@ -39,7 +39,7 @@ const onTapPool = (pool: Pool) => {
           :pairName="pool.name"
           :token1Image="pool.image1"
           :token2Image="pool.image2"
-          @click="onTapPool(pool)"
+          @click.stop="onTapPool(pool)"
       />
     </section>
   </div>
@@ -57,7 +57,7 @@ const onTapPool = (pool: Pool) => {
     gap: var(--gap1);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     /* padding: 0 var(--gutter) 2rem; */
   }
 </style>
