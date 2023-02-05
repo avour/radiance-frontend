@@ -819,5 +819,8 @@
       "name": "IlliquidPool",
       "msg": "Not enough liquidity in the pool"
     }
-  ]
+  ],
+  "metadata": {
+    "address": "2SnZowMwuMLoBeAeCFEWhjE12QoGd6ex8gR15TYhWyF5"
+  }
 }

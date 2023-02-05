@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
 import PoolCard from "./PoolCard.vue";
+// import { useWorkspace } from "../../";
 
+// const { program } = useWorkspace();
+// await program.value.rpc.myInstruction(/* ... */);
 export interface Pool {
   id: number
   apr: number
@@ -17,6 +20,8 @@ const router = useRouter()
 defineProps<{ sectionTitle: string, poolData: Pool[] }>()
 
 const onTapPool = (pool: Pool) => {
+
+  
   router.push({
       name: 'pool-details',
       params: { id: pool.id, title: pool.name.replaceAll(/[^a-zA-Z0-9 ]/g,'').toLowerCase() },

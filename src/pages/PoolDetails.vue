@@ -12,6 +12,7 @@ let activePool: Pool | undefined = poolData.find((value): boolean => {
     return value.id == parseInt(route.params.id.toString());
 })
 
+
 // let activeTab: number = ref(0);
 
 </script>
