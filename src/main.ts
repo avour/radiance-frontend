@@ -11,10 +11,13 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 import 'vue3-toastify/dist/index.css';
 import Vue3Toasity from 'vue3-toastify';
+import {Tabs, Tab} from 'vue3-tabs-component';
 
 const app = createApp(App)
 app.use(router)
 app.component('EasyDataTable', Vue3EasyDataTable);
+app.component('tabs', Tabs);
+app.component('tab', Tab);
 app.use(Vue3Toasity,
 {
     autoClose: 3000,
