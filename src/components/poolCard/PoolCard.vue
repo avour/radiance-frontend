@@ -55,7 +55,7 @@ defineProps<{
 .pool_card:hover {
   cursor: pointer;
   transition: all ease-in 0.2s;
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .pool_name {
@@ -68,6 +68,10 @@ defineProps<{
   padding: 1rem 1rem 1.5rem;
   border-radius: var(--radius);
   background: var(--primaryColor);
+}
+
+.pool_card.flex_column:hover {
+  background: rgba(0, 0, 0, 0.32);
 }
 
 .pool_image {
