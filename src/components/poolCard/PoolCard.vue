@@ -60,11 +60,12 @@ defineProps<{
 
 .pool_name {
   font-size: 1rem;
+  color: var(--hoverColor);
 }
 
 .pool_card.flex_column {
-  width: calc(25% - 2.8rem);
-  padding: .2rem 1rem 1.5rem;
+  width: calc(27.5% - 2.8rem);
+  padding: 1rem 1rem 1.5rem;
   border-radius: var(--radius);
   background: var(--primaryColor);
 }
@@ -89,8 +90,9 @@ defineProps<{
 }
 
 .pool_image img {
-  width: 90px;
-  height: 90px;
+  width: 75px;
+  height: 75px;
+  margin-top: 1rem;
   border-radius: 50%;
 }
 
@@ -121,7 +123,8 @@ defineProps<{
 .more_info {
   gap: .4rem .3rem;
   margin-top: 1.8rem;
-  color: var(--hoverColor);
+  color: white;
+  /*color: var(--hoverColor);*/
 }
 
 .more_info_details {

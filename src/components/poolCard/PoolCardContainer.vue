@@ -100,16 +100,16 @@ const onTapPool = async (pool: Pool) => {
 
 <style scoped>
   .section_title {
-    color: black;
-    /* margin-top: var(--gap1); */
-    /* padding: .5rem var(--gutter); */
+    color: white;
+    font-size: 1.3rem;
+     margin-top: 2.5rem;
   }
 
   .pool_card_container {
     gap: var(--gap1);
     display: flex;
     flex-wrap: wrap;
+    margin-top: 1.5rem;
     justify-content: space-between;
-    /* padding: 0 var(--gutter) 2rem; */
   }
 </style>

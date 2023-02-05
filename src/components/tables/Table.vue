@@ -79,6 +79,7 @@
     .title {
       gap: .1rem;
       h2 {
+        color: white;
         font-size: 1.3rem;
       }
       p {
@@ -89,7 +90,7 @@
   }
 
   .table_headers {
-    margin-top: 2rem;
+    margin: 2rem 0 1rem;
     border-radius: var(--smRadius);
     background: rgba(0, 0, 0, 0.12);
     // width: calc(100% - 4rem);
