@@ -11,9 +11,11 @@ import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@project-serum/anchor/dist/cjs/utils/token";
 import * as anchor from "@project-serum/anchor";
 import { toast } from 'vue3-toastify';
+import { onMounted } from 'vue';
 
 
 import { ref } from 'vue';
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 enum Events {
     none,
     deposit,
@@ -24,6 +26,7 @@ enum Events {
 const isShow = ref(false);
 const amount = ref("");
 const event = ref(Events.none)
+const collateralDeposited = ref(0)
 
 function showModal() {
     isShow.value = true;
@@ -50,7 +53,6 @@ function closeModal() {
 }
 
 
-
 const route = useRoute()
 const workspace = useWorkspace();
 const { program, wallet, provider } = workspace;
@@ -59,7 +61,19 @@ let pool: Pool = poolData.find((value): boolean => {
     return value.poolId == parseInt(route.params.id.toString());
 })!
 
-// let userCollateralConfig = await program.value account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
+onMounted(async () => {
+    await new Promise(resolve => setTimeout(resolve, 10));
+    reloadAccounts();
+});
+
+
+const reloadAccounts = async () => {
+    const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
+    let userCollateralConfig = await program.value.account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
+    collateralDeposited.value = userCollateralConfig.collateralDeposited.toNumber() / LAMPORTS_PER_SOL
+    userCollateralConfig.baseBorrowedAmount
+}
+
 
 const depositCollateral = async () => {
 
@@ -68,8 +82,8 @@ const depositCollateral = async () => {
 
     try {
         // const poolId = parseInt((Date.now() / 1000).toString());
-        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
         console.log(`Deposit Collateral`);
+        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
 
         let userLpTokenAccount = await getAssociatedTokenAddress(
             pool.lpMint,
@@ -79,7 +93,7 @@ const depositCollateral = async () => {
         // Initialize mint account and fund the account
         signature = await program.value.methods.depositCollateral({
             poolId: pda.poolID,
-            amount: new anchor.BN(amount.value)
+            amount: new anchor.BN(parseInt(amount.value) * LAMPORTS_PER_SOL)
         }).accounts({
             lendingPool: pda.lendingPoolKey,
             collateralVault: pda.collateralVault,
@@ -104,6 +118,7 @@ const depositCollateral = async () => {
         return;
     }
 
+    reloadAccounts();
     toast.remove(toastId)
     await new Promise(resolve => setTimeout(resolve, 10));
     toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
@@ -131,7 +146,7 @@ const withdrawCollateral = async () => {
         // Initialize mint account and fund the account
         signature = await program.value.methods.withdrawCollateral({
             poolId: pda.poolID,
-            amount: new anchor.BN(amount.value)
+            amount: new anchor.BN(parseInt(amount.value) * LAMPORTS_PER_SOL)
         }).accounts({
             lendingPool: pda.lendingPoolKey,
             collateralVault: pda.collateralVault,
@@ -156,6 +171,7 @@ const withdrawCollateral = async () => {
         return;
     }
 
+    reloadAccounts();
     toast.remove(toastId)
     await new Promise(resolve => setTimeout(resolve, 10));
     toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
