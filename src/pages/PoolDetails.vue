@@ -267,7 +267,8 @@ const baseConfig = [
                 <!-- Switch Tab -->
                 <tabs
                     :options="{ useUrlFragment: false }"
-                    wrapper-class="tw-self-center tw-no-underline"
+                    wrapper-class="tw-self-center"
+                    panel-class="tw-w-[min(700px,150%)] tw-self-center tw-no-underline"
                     nav-item-class="tw-px-4 tw-py-2 tw-rounded-3xl tw-no-underline"
                     nav-item-link-class="tw-no-underline tw-text-grey-900 tw-text-sm tw-font-semiBold  tw-text-white"
                     nav-item-link-disabled-class="tw-no-underline"
@@ -275,18 +276,18 @@ const baseConfig = [
                     nav-class="tw-flex tw-flex-grow-0 tw-justify-center tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground"
                     >
                     <tab name="Borrow">
-                        <Modal v-model="isShow" :close="closeModal">
-                            <div class="modal ">
-                                <p class="tw-mb-2">Enter Amount</p>
+                        <GlowContainer class="tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
+                            <Modal v-model="isShow" :close="closeModal">
+                                <div class="modal ">
+                                    <p class="tw-mb-2">Enter Amount</p>
 
-                                <div class="input_container">
-                                    <input class="input" v-model="amount" placeholder="Input Amount" />
+                                    <div class="input_container">
+                                        <input class="input" v-model="amount" placeholder="Input Amount" />
+                                    </div>
+                                    <button @click="closeModal"
+                                        class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg tw-mt-4">Continue</button>
                                 </div>
-                                <button @click="closeModal"
-                                    class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg tw-mt-4">Continue</button>
-                            </div>
-                        </Modal>
-                        <GlowContainer class="tw-w-[min(700px,150%)] tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
+                            </Modal>
                             <div
                                 class="cardBackground tw-h-full tw-w-full tw-py-8 tw-px-6 tw-rounded-3xl tw-p-5 tw-overflow-hidden">
                                 <div class="tw-w-full tw-flex tw-flex-col tw-rounded-xl tw-p-5">
@@ -377,7 +378,7 @@ const baseConfig = [
                         </GlowContainer>
                     </tab>
                     <tab name="Lend">
-                        <GlowContainer class="tw-w-[min(700px,150%)] tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
+                        <GlowContainer class="tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
                             <Modal v-model="isShow" :close="closeModal">
                                 <div class="modal ">
                                     <p class="tw-mb-2">Enter Amount</p>
