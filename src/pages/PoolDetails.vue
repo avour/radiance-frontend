@@ -74,6 +74,9 @@ const reloadAccounts = async () => {
     userCollateralConfig.baseBorrowedAmount
 }
 
+const getSolScanLink = (signature: string): string => {
+    return `<a style="color:blue; text-decoration: underline;" href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`
+}
 
 const depositCollateral = async () => {
 
@@ -121,7 +124,7 @@ const depositCollateral = async () => {
     reloadAccounts();
     toast.remove(toastId)
     await new Promise(resolve => setTimeout(resolve, 10));
-    toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
+    toast.success(`Deposit Successful\nView on SolScan ${getSolScanLink(signature)}`, {
         autoClose: 9000,
         dangerouslyHTMLString: true,
     })
@@ -174,7 +177,7 @@ const withdrawCollateral = async () => {
     reloadAccounts();
     toast.remove(toastId)
     await new Promise(resolve => setTimeout(resolve, 10));
-    toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
+    toast.success(`Withdraw Successful\nView on SolScan ${getSolScanLink(signature)}`, {
         autoClose: 9000,
         dangerouslyHTMLString: true,
     })
@@ -281,16 +284,13 @@ const baseConfig = [
                 </GlowContainer>
 
                 <!-- Switch Tab -->
-                <tabs
-                    :options="{ useUrlFragment: false }"
-                    wrapper-class="tw-self-center"
+                <tabs :options="{ useUrlFragment: false }" wrapper-class="tw-self-center"
                     panel-class="tw-w-[min(700px,150%)] tw-self-center tw-no-underline"
                     nav-item-class="tw-px-4 tw-py-2 tw-rounded-3xl tw-no-underline"
                     nav-item-link-class="tw-no-underline tw-text-grey-900 tw-text-sm tw-font-semiBold  tw-text-white"
                     nav-item-link-disabled-class="tw-no-underline"
                     nav-item-active-class="tw-rounded-3xl tw-bg-gradient-to-r tw-from-[#20BF55] tw-to-[#01BAEF]"
-                    nav-class="tw-flex tw-flex-grow-0 tw-justify-center tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground"
-                    >
+                    nav-class="tw-flex tw-flex-grow-0 tw-justify-center tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground">
                     <tab name="Borrow">
                         <GlowContainer class="tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
                             <Modal v-model="isShow" :close="closeModal">
@@ -318,26 +318,32 @@ const baseConfig = [
                                         <table class="infoTable tw-w-full tw-table-auto tw-border-collapse">
                                             <tbody>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>USDT/MATIC</td>
+                                                    <td>Collateral (LP Token)</td>
                                                     <td>
-                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</p>
-                                                        <p class="tw-text-medium">$0</p>
+                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">
+                                                            Deposited:</p>
                                                     </td>
                                                     <td>
-                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</p>
-                                                        <p class="tw-text-medium">$0</p>
+                                                        <p class="tw-text-medium">{{
+                                                            Intl.NumberFormat('en-US', {
+                                                                style: 'currency',
+                                                                currency: 'USD',
+                                                            }).format(collateralDeposited)
+                                                        }}</p>
                                                     </td>
                                                     <td>
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                            <button @click="() => { event = Events.deposit; showModal() }"
+                                                            <button
+                                                                @click="() => { event = Events.deposit; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Deposit</button>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                            <button @click="() => { event = Events.withdraw; showModal() }"
+                                                            <button
+                                                                @click="() => { event = Events.withdraw; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
                                                             <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Leverage</button> -->
                                                             <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Delvage</button> -->
@@ -345,15 +351,12 @@ const baseConfig = [
                                                     </td>
                                                 </tr>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>MATIC</td>
+                                                    <td>{{ pool.baseName }}</td>
                                                     <td>
                                                         <span
-                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
-                                                        <span class="tw-text-medium">$0</span>
+                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed:</span><br />
                                                     </td>
                                                     <td>
-                                                        <span
-                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</span><br />
                                                         <span class="tw-text-medium">$0</span>
                                                     </td>
                                                     <td class="end">
@@ -366,15 +369,12 @@ const baseConfig = [
                                                     </td>
                                                 </tr>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>USDT</td>
+                                                    <td>{{ pool.quoteName }}</td>
                                                     <td>
                                                         <span
-                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
-                                                        <span class="tw-text-medium">$0</span>
+                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed:</span><br />
                                                     </td>
                                                     <td>
-                                                        <span
-                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</span><br />
                                                         <span class="tw-text-medium">$0</span>
                                                     </td>
                                                     <td class="end">
@@ -422,17 +422,20 @@ const baseConfig = [
                                                 <tr class="tw-border-b tw-border-gray-600">
                                                     <td>USDC/SOL</td>
                                                     <td>
-                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</p>
+                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">
+                                                            Deposited</p>
                                                         <p class="tw-text-medium">$0</p>
                                                     </td>
                                                     <td>
-                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</p>
+                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">
+                                                            Borrowed</p>
                                                         <p class="tw-text-medium">$0</p>
                                                     </td>
                                                     <td>
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                            <button @click="() => { event = Events.deposit; showModal() }"
+                                                            <button
+                                                                @click="() => { event = Events.deposit; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Deposit</button>
                                                         </div>
                                                     </td>

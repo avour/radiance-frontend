@@ -31,9 +31,10 @@ onMounted(() => {
 
 
 <style>
+</style>
+<!-- 
 a:link {
     color: blue;
     background-color: transparent;
     text-decoration: underline;
-}
-</style>
+} -->
