@@ -38,7 +38,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Radiance Protocol is a permissionless lending market that offers a unique solution to the problems of impermanent loss and lost collateral opportunity in the DeFi space. 
+Radiance Protocol is a permissionless lending market that offers a unique solution to the problems of impermanent loss and lost collateral opportunity in the DeFi space. Radiance supports markets available on OpenBook https://www.openbook-solana.com/
+
+## Why Radiance 
+
+Impermanent loss is a major concern in the DeFi lending market, deterring many risk-averse investors from entering the market. Radiance solves this problem by offering a platform where LP tokens can be used as collateral to borrow other tokens, reducing the risk of impermanent loss and earning yield in the process. Borrowers can also leverage their LP tokens to lock up assets and increase their yield.
 
 ## Features 
 
@@ -60,11 +64,6 @@ Radiance Protocol is a permissionless lending market that offers a unique soluti
 - Borrowers can leverage their LP tokens to lock up assets and increase their yield 
 
 [![Product Name Screen Shot][screenshot5]](https://example.com)
-
-
-## Why Radiance 
-
-Impermanent loss is a major concern in the DeFi lending market, deterring many risk-averse investors from entering the market. Radiance solves this problem by offering a platform where LP tokens can be used as collateral to borrow other tokens, reducing the risk of impermanent loss and earning yield in the process. Borrowers can also leverage their LP tokens to lock up assets and increase their yield.
 
 ## Vision 
 
