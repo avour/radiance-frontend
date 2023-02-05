@@ -313,14 +313,14 @@ const baseConfig = [
                                                     <td>
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                            <button @click="onDeposit()"
+                                                            <button @click="() => { event = Events.deposit; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Deposit</button>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                            <button
+                                                            <button @click="() => { event = Events.withdraw; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
                                                             <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Leverage</button> -->
                                                             <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Delvage</button> -->
@@ -415,7 +415,7 @@ const baseConfig = [
                                                     <td>
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                            <button @click="onDeposit()"
+                                                            <button @click="() => { event = Events.deposit; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Deposit</button>
                                                         </div>
                                                     </td>
@@ -423,6 +423,7 @@ const baseConfig = [
                                                         <div
                                                             class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
                                                             <button
+                                                                @click="() => { event = Events.withdraw; showModal() }"
                                                                 class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
                                                             <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Leverage</button> -->
                                                             <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Delvage</button> -->
