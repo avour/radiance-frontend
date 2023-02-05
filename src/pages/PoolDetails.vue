@@ -46,7 +46,7 @@ function showModal() {
     isShow.value = true;
 }
 
-function closeModal() {
+async function closeModal() {
     isShow.value = false;
     console.log(amount);
     if (!amount.value || event.value == Events.none) {
@@ -54,34 +54,34 @@ function closeModal() {
     }
     switch (event.value) {
         case Events.deposit:
-            depositCollateral();
+            await depositCollateral();
             break;
         case Events.withdraw:
-            withdrawCollateral();
+            await withdrawCollateral();
             break;
         case Events.borrowBase:
-            borrow();
+            await borrow();
             break;
         case Events.borrowQuote:
-            borrow();
+            await borrow();
             break;
         case Events.repayBase:
-            repayLoan();
+            await repayLoan();
             break;
         case Events.repayQuote:
-            repayLoan();
+            await repayLoan();
             break;
         case Events.supplyBase:
-            supplyBorrowable();
+            await supplyBorrowable();
             break;
         case Events.supplyQuote:
-            supplyBorrowable()
+            await supplyBorrowable()
             break;
         case Events.withdrawBase:
-            withdrawBorrowable();
+            await withdrawBorrowable();
             break;
         case Events.withdrawQuote:
-            withdrawBorrowable();
+            await withdrawBorrowable();
             break;
 
         default:
@@ -367,7 +367,7 @@ const supplyBorrowable = async () => {
     try {
         // const poolId = parseInt((Date.now() / 1000).toString());
         const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert, pool.borrowableBaseMint, pool.borrowableQuoteMint);
-        console.log(`Supplying Borrowable...`);
+        console.log(`Supplying Borrowable... `, event.value);
 
         let userBorrowableTokenAccount = await getAssociatedTokenAddress(
             event.value == Events.supplyBase ? pool.borrowableBaseMint : pool.borrowableQuoteMint,
@@ -433,7 +433,7 @@ const withdrawBorrowable = async () => {
         );
 
         let userRadianceTokenAccount = await getAssociatedTokenAddress(
-            event.value == Events.supplyBase ? pool.baseRadianceMint : pool.quoteRadianceMint,
+            event.value == Events.withdrawBase ? pool.baseRadianceMint : pool.quoteRadianceMint,
             wallet.value!.publicKey
         );
 
@@ -545,7 +545,10 @@ const baseConfig = [
                     <div class="cardBackground tw-py-8 tw-px-6 tw-rounded-3xl">
                         <div class="tw-grid tw-grid-cols-2 tw-text-gray-200 tw-divide-x tw-divide-gray-600">
                             <div class="tw-flex tw-flex-col tw-pr-4">
-                                <p class="tw-text-lg tw-text-white tw-font-semiBold">{{ pool.baseName }}</p>
+                                <div class="flex_row ">
+                                    <img :src="pool.image1" :alt="pool.baseName" class="avatar" />
+                                    <p class="tw-text-lg tw-text-white tw-font-semiBold">{{ pool.baseName }} </p>
+                                </div>
                                 <div v-for="data in quoteConfig"
                                     class="tw-flex tw-justify-between tw-py-3 tw-border-b tw-border-gray-500">
                                     <p>{{ data.name }}</p>
@@ -559,7 +562,10 @@ const baseConfig = [
                                 </div>
                             </div>
                             <div class="tw-flex tw-flex-col tw-pl-4">
-                                <p class="tw-text-lg tw-text-white tw-font-semiBold">{{ pool.quoteName }}</p>
+                                <div class="flex_row ">
+                                    <img :src="pool.image2" :alt="pool.quoteName" class="avatar" />
+                                    <p class="tw-text-lg tw-text-white tw-font-semiBold">{{ pool.quoteName }} </p>
+                                </div>
                                 <div v-for="data in baseConfig"
                                     class="tw-flex tw-justify-between tw-py-3 tw-border-b tw-border-gray-500">
                                     <p>{{ data.name }}</p>
@@ -577,7 +583,8 @@ const baseConfig = [
                 </GlowContainer>
 
                 <!-- Switch Tab -->
-                <tabs :options="{ useUrlFragment: false }" wrapper-class="tw-flex tw-flex-col tw-items-center tw-self-center"
+                <tabs :options="{ useUrlFragment: false }"
+                    wrapper-class="tw-flex tw-flex-col tw-items-center tw-self-center"
                     panel-class="tw-w-[min(700px,150%)] tw-self-center tw-no-underline"
                     nav-item-class="tw-px-4 tw-py-2 tw-rounded-3xl tw-no-underline"
                     nav-item-link-class="tw-no-underline tw-text-grey-900 tw-text-sm tw-font-semiBold  tw-text-white"
@@ -586,7 +593,7 @@ const baseConfig = [
                     nav-class="tw-flex tw-grow-0 tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground">
                     <tab name="Borrow">
                         <GlowContainer class="tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
-                            <Modal v-model="isShow" :close="()=> {isShow = false}">
+                            <Modal v-model="isShow" :close="() => { isShow = false }">
                                 <div class="modal ">
                                     <p class="tw-mb-2">Enter Amount</p>
 
@@ -611,7 +618,19 @@ const baseConfig = [
                                         <table class="infoTable tw-w-full tw-table-auto tw-border-collapse">
                                             <tbody>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>Collateral (LP Token)</td>
+                                                    <td>
+                                                        <div class="flex_row">
+                                                            <div class="pool_image flex_row_center">
+                                                                <img :src="pool.image1" />
+                                                                <img :src="pool.image2" />
+                                                            </div>
+                                                            <p> Collateral (LP Token)
+                                                            </p>
+
+                                                        </div>
+
+
+                                                    </td>
                                                     <td>
                                                         <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">
                                                             Deposited:</p>
@@ -644,7 +663,10 @@ const baseConfig = [
                                                     </td>
                                                 </tr>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>{{ pool.baseName }}</td>
+                                                    <div class="flex_row">
+                                                        <img :src="pool.image1" class="avatar1" />
+                                                        <p> {{ pool.baseName }}</p>
+                                                    </div>
                                                     <td>
                                                         <span
                                                             class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed:</span><br />
@@ -668,7 +690,12 @@ const baseConfig = [
                                                     </td>
                                                 </tr>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>{{ pool.quoteName }}</td>
+                                                    <td>
+                                                        <div class="flex_row">
+                                                            <img :src="pool.image2" class="avatar1" />
+                                                            <p> {{ pool.quoteName }}</p>
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <span
                                                             class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed:</span><br />
@@ -701,7 +728,7 @@ const baseConfig = [
                     </tab>
                     <tab name="Lend">
                         <GlowContainer class="tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
-                            <Modal v-model="isShow" :close="closeModal">
+                            <Modal v-model="isShow" :close="() => { isShow = false }">
                                 <div class="modal ">
                                     <p class="tw-mb-2">Enter Amount</p>
 
@@ -726,7 +753,10 @@ const baseConfig = [
                                         <table class="infoTable tw-w-full tw-table-auto tw-border-collapse">
                                             <tbody>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>{{ pool.baseName }}</td>
+                                                    <div class="flex_row">
+                                                        <img :src="pool.image1" class="avatar1" />
+                                                        <p> {{ pool.baseName }}</p>
+                                                    </div>
                                                     <td>
                                                         <span
                                                             class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
@@ -751,7 +781,10 @@ const baseConfig = [
                                                     </td>
                                                 </tr>
                                                 <tr class="tw-border-b tw-border-gray-600">
-                                                    <td>{{ pool.quoteName }}</td>
+                                                    <div class="flex_row">
+                                                        <img :src="pool.image2" class="avatar1" />
+                                                        <p> {{ pool.quoteName }}</p>
+                                                    </div>
                                                     <td>
                                                         <span
                                                             class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
@@ -812,5 +845,45 @@ const baseConfig = [
     background-color: #fff;
     font-size: 20px;
     text-align: center;
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+}
+
+.avatar1 {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.pool_image {
+    padding-left: 0;
+}
+
+.pool_image img {
+    position: relative;
+    top: -.6rem;
+    padding: .2rem;
+    background: var(--hoverColor);
+}
+
+.pool_image img:first-of-type {
+    position: relative;
+    /*z-index: 2;*/
+}
+
+.pool_image img:last-of-type {
+    position: relative;
+    left: -.5rem;
+}
+
+.pool_image img {
+    width: 32px;
+    height: 32px;
+    margin-top: 1rem;
+    border-radius: 50%;
 }
 </style>
