@@ -33,11 +33,20 @@
           <p>Earn yield on trading fees by providing liquidity</p>
         </div>
 
-        <div class="input_container">
-          <i class="fal fa-search"></i>
-          <input class="input" placeholder="Search pools" />
+        <div class="tw-flex tw-gap-3">
+          <router-link to="/pools/create">
+            <button class="tw-px-4 tw-py-2 tw-text-white tw-font-medium tw-rounded-xl tw-bg-gradient-to-r tw-from-[#20BF55] tw-to-[#01BAEF]">
+              <span class="tw-mr-2"><i class="fal fa-plus"></i></span>
+              <span>Create Pool</span>
+            </button>
+          </router-link>
+          <div class="input_container">
+            <i class="fal fa-search"></i>
+            <input class="input" placeholder="Search pools" />
+          </div>
         </div>
       </div>
+
 
       <div class="table_headers space_between">
         <div class="pool_name flex_row_center">

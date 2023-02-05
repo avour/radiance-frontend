@@ -577,13 +577,13 @@ const baseConfig = [
                 </GlowContainer>
 
                 <!-- Switch Tab -->
-                <tabs :options="{ useUrlFragment: false }" wrapper-class="tw-self-center"
+                <tabs :options="{ useUrlFragment: false }" wrapper-class="tw-flex tw-flex-col tw-items-center tw-self-center"
                     panel-class="tw-w-[min(700px,150%)] tw-self-center tw-no-underline"
                     nav-item-class="tw-px-4 tw-py-2 tw-rounded-3xl tw-no-underline"
                     nav-item-link-class="tw-no-underline tw-text-grey-900 tw-text-sm tw-font-semiBold  tw-text-white"
                     nav-item-link-disabled-class="tw-no-underline"
                     nav-item-active-class="tw-rounded-3xl tw-bg-gradient-to-r tw-from-[#20BF55] tw-to-[#01BAEF]"
-                    nav-class="tw-flex tw-flex-grow-0 tw-justify-center tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground">
+                    nav-class="tw-flex tw-grow-0 tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground">
                     <tab name="Borrow">
                         <GlowContainer class="tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
                             <Modal v-model="isShow" :close="()=> {isShow = false}">
