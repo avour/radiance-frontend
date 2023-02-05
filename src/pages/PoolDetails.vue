@@ -11,9 +11,12 @@ import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@project-serum/anchor/dist/cjs/utils/token";
 import * as anchor from "@project-serum/anchor";
 import { toast } from 'vue3-toastify';
+import { onMounted } from 'vue';
+import * as RaydianceType from '../idl/raydiance';
 
 
 import { ref } from 'vue';
+import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 enum Events {
     none,
     deposit,
@@ -24,6 +27,7 @@ enum Events {
 const isShow = ref(false);
 const amount = ref("");
 const event = ref(Events.none)
+const collateralDeposited = ref(0)
 
 function showModal() {
     isShow.value = true;
@@ -50,7 +54,6 @@ function closeModal() {
 }
 
 
-
 const route = useRoute()
 const workspace = useWorkspace();
 const { program, wallet, provider } = workspace;
@@ -59,7 +62,19 @@ let pool: Pool = poolData.find((value): boolean => {
     return value.poolId == parseInt(route.params.id.toString());
 })!
 
-// let userCollateralConfig = await program.value account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
+onMounted(async () => {
+    await new Promise(resolve => setTimeout(resolve, 10));
+    reloadAccounts();
+});
+
+
+const reloadAccounts = async () => {
+    const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
+    let userCollateralConfig = await program.value.account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
+    collateralDeposited.value = userCollateralConfig.collateralDeposited.toNumber() / LAMPORTS_PER_SOL
+    userCollateralConfig.baseBorrowedAmount
+}
+
 
 const depositCollateral = async () => {
 
@@ -68,8 +83,8 @@ const depositCollateral = async () => {
 
     try {
         // const poolId = parseInt((Date.now() / 1000).toString());
-        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
         console.log(`Deposit Collateral`);
+        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
 
         let userLpTokenAccount = await getAssociatedTokenAddress(
             pool.lpMint,
@@ -79,7 +94,7 @@ const depositCollateral = async () => {
         // Initialize mint account and fund the account
         signature = await program.value.methods.depositCollateral({
             poolId: pda.poolID,
-            amount: new anchor.BN(amount.value)
+            amount: new anchor.BN(parseInt(amount.value) * LAMPORTS_PER_SOL)
         }).accounts({
             lendingPool: pda.lendingPoolKey,
             collateralVault: pda.collateralVault,
@@ -104,6 +119,7 @@ const depositCollateral = async () => {
         return;
     }
 
+    reloadAccounts();
     toast.remove(toastId)
     await new Promise(resolve => setTimeout(resolve, 10));
     toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
@@ -131,7 +147,7 @@ const withdrawCollateral = async () => {
         // Initialize mint account and fund the account
         signature = await program.value.methods.withdrawCollateral({
             poolId: pda.poolID,
-            amount: new anchor.BN(amount.value)
+            amount: new anchor.BN(parseInt(amount.value) * LAMPORTS_PER_SOL)
         }).accounts({
             lendingPool: pda.lendingPoolKey,
             collateralVault: pda.collateralVault,
@@ -156,6 +172,7 @@ const withdrawCollateral = async () => {
         return;
     }
 
+    reloadAccounts();
     toast.remove(toastId)
     await new Promise(resolve => setTimeout(resolve, 10));
     toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
@@ -276,7 +293,7 @@ const baseConfig = [
                     <!-- If the option changed modal component the name
                       <MyModal>
                       -->
-                    <Modal v-model="isShow" :close="closeModal">
+                    <Modal v-model="isShow" :close="() => { isShow = false }">
                         <div class="modal ">
                             <p class="tw-mb-2">Enter Amount</p>
 
@@ -303,14 +320,17 @@ const baseConfig = [
                                 <table class="infoTable tw-w-full tw-table-auto tw-border-collapse">
                                     <tbody>
                                         <tr class="tw-border-b tw-border-gray-600">
-                                            <td>USDT/MATIC</td>
+                                            <td>Collateral (LP Token)</td>
                                             <td>
                                                 <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</p>
-                                                <p class="tw-text-medium">$0</p>
                                             </td>
                                             <td>
-                                                <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</p>
-                                                <p class="tw-text-medium">$0</p>
+                                                <p class="tw-text-medium">{{
+                                                    Intl.NumberFormat('en-US', {
+                                                        style: 'currency',
+                                                        currency: 'USD',
+                                                    }).format(collateralDeposited)
+                                                }}</p>
                                             </td>
                                             <td>
                                                 <div
@@ -332,7 +352,7 @@ const baseConfig = [
                                             </td>
                                         </tr>
                                         <tr class="tw-border-b tw-border-gray-600">
-                                            <td>MATIC</td>
+                                            <td>{{ pool.baseName }}</td>
                                             <td>
                                                 <span
                                                     class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
@@ -353,7 +373,7 @@ const baseConfig = [
                                             </td>
                                         </tr>
                                         <tr class="tw-border-b tw-border-gray-600">
-                                            <td>USDT</td>
+                                            <td>{{ pool.quoteName }}</td>
                                             <td>
                                                 <span
                                                     class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
