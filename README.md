@@ -25,9 +25,9 @@
     <a href="https://radaince-protocol.web.app/#/pools"><strong>View Live Website »</strong></a>
     <br />
     <br />
-    <a href="https://youtu.be/-IDu9lG-wZM">View View Demo</a>
+    <a href="https://youtu.be/-IDu9lG-wZM">View Video Demo</a>
     ·
-    <a href="https://github.com/avour/raydiance-core">Core Smart Contracts</a>
+    <a href="https://github.com/avour/raydiance-core">View Core Smart Contracts</a>
     ·
   </p>
 </div>
@@ -71,7 +71,7 @@ Impermanent loss is a major concern in the DeFi lending market, deterring many r
 Radiance aims to become the world's top lending marketplace based on LP tokens, solving the problems of lost collateral opportunity and impermanent loss in the current LP market. Join us on our mission to revolutionize the DeFi lending market.
 
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][screenshot6]](https://example.com)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -119,15 +119,6 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@avour5](https://twitter.com/avour5)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
