@@ -6,11 +6,33 @@ import InfoTile from "../components/InfoTile.vue"
 import GlowContainer from "../components/GlowContainer..vue";
 import { Pool } from "../components/poolCard/PoolCardContainer.vue";
 import { useWorkspace } from "../hooks/useWorkspace";
-import { getPdaParams, createUserAssociatedTokenAccount } from "@src/web3_utils";
+import { getPdaParams } from "@src/web3_utils";
 import { getAssociatedTokenAddress } from "@solana/spl-token";
 import { TOKEN_PROGRAM_ID } from "@project-serum/anchor/dist/cjs/utils/token";
 import * as anchor from "@project-serum/anchor";
 import { toast } from 'vue3-toastify';
+
+
+import { ref } from 'vue';
+
+const isShow = ref(false);
+
+function showModal() {
+    isShow.value = true;
+}
+
+function closeModal() {
+    isShow.value = false;
+}
+
+// return {
+//     isShow,
+//     showModal,
+//     closeModal,
+// };
+
+
+
 
 const route = useRoute()
 const workspace = useWorkspace();
@@ -20,16 +42,69 @@ let pool: Pool = poolData.find((value): boolean => {
     return value.poolId == parseInt(route.params.id.toString());
 })!
 
+const quoteConfig = [
+    {
+        name: "Total Supply",
+        value: 2342564,
+        type: "currency"
+    },
+    {
+        name: "Total Borrow",
+        value: 242349,
+        type: "currency"
+    },
+    {
+        name: "Utilization Rate",
+        value: 58,
+        type: "percent"
+    },
+    {
+        name: "Supply APR",
+        value: 8.6,
+        type: "percent"
+    },
+    {
+        name: "Borrow APR",
+        value: 10.4,
+        type: "percent"
+    },
+]
+const baseConfig = [
+    {
+        name: "Total Supply",
+        value: 2342564,
+        type: "currency"
+    },
+    {
+        name: "Total Borrow",
+        value: 242349,
+        type: "currency"
+    },
+    {
+        name: "Utilization Rate",
+        value: 58,
+        type: "percent"
+    },
+    {
+        name: "Supply APR",
+        value: 8.6,
+        type: "percent"
+    },
+    {
+        name: "Borrow APR",
+        value: 10.4,
+        type: "percent"
+    },
+]
 // let userCollateralConfig = await program.value account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
 
 
 const onDeposit = async () => {
+
     const toastId = toast.loading('Please wait...');
     let signature = '';
 
-
     try {
-
         // const poolId = parseInt((Date.now() / 1000).toString());
         const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
         console.log(`Deposit Collateral`);
@@ -39,6 +114,7 @@ const onDeposit = async () => {
             wallet.value!.publicKey
         );
         let amount = new anchor.BN("30000")
+
         // Initialize mint account and fund the account
         signature = await program.value.methods.depositCollateral({
             poolId: pda.poolID,
@@ -93,19 +169,31 @@ const onDeposit = async () => {
                     <div class="cardBackground tw-py-8 tw-px-6 tw-rounded-3xl">
                         <div class="tw-grid tw-grid-cols-2 tw-text-gray-200 tw-divide-x tw-divide-gray-600">
                             <div class="tw-flex tw-flex-col tw-pr-4">
-                                <p class="tw-text-lg tw-text-white tw-font-semiBold">Polygon Matic</p>
-                                <div v-for="data in poolData"
+                                <p class="tw-text-lg tw-text-white tw-font-semiBold">{{ pool.baseName }}</p>
+                                <div v-for="data in quoteConfig"
                                     class="tw-flex tw-justify-between tw-py-3 tw-border-b tw-border-gray-500">
                                     <p>{{ data.name }}</p>
-                                    <p>{{ data.supply }}</p>
+                                    <p v-if="data.type == 'currency'">{{
+                                        Intl.NumberFormat('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        }).format(data.value)
+                                    }}</p>
+                                    <p v-else>{{ data.value }}%</p>
                                 </div>
                             </div>
                             <div class="tw-flex tw-flex-col tw-pl-4">
-                                <p class="tw-text-lg tw-text-white tw-font-semiBold">(PoS) Tether USD (USDT)</p>
-                                <div v-for="data in poolData"
+                                <p class="tw-text-lg tw-text-white tw-font-semiBold">{{ pool.quoteName }}</p>
+                                <div v-for="data in baseConfig"
                                     class="tw-flex tw-justify-between tw-py-3 tw-border-b tw-border-gray-500">
                                     <p>{{ data.name }}</p>
-                                    <p>{{ data.supply }}</p>
+                                    <p v-if="data.type == 'currency'">{{
+                                        Intl.NumberFormat('en-US', {
+                                            style: 'currency',
+                                            currency: 'USD',
+                                        }).format(data.value)
+                                    }}</p>
+                                    <p v-else>{{ data.value }}%</p>
                                 </div>
                             </div>
                         </div>
@@ -121,6 +209,20 @@ const onDeposit = async () => {
                 </div>
 
                 <GlowContainer class="tw-w-[min(700px,150%)] tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
+                    <p>
+                        <button @click="showModal">Show modal</button>
+                    </p>
+                    <!-- If the option changed modal component the name
+                      <MyModal>
+                      -->
+                    <Modal v-model="isShow" :close="closeModal">
+                        <div class="modal">
+                            <p>Hello</p>
+                            <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
+                        </div>
+                    </Modal>
+
+
                     <div
                         class="cardBackground tw-h-full tw-w-full tw-py-8 tw-px-6 tw-rounded-3xl tw-p-5 tw-overflow-hidden">
                         <div class="tw-w-full tw-flex tw-flex-col tw-rounded-xl tw-p-5">
@@ -226,6 +328,15 @@ const onDeposit = async () => {
 
 .infoTable tr td.center {
     padding: 5px 0px;
+    text-align: center;
+}
+
+.modal {
+    width: 300px;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #fff;
+    font-size: 20px;
     text-align: center;
 }
 </style>

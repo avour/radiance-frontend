@@ -15,7 +15,8 @@ export interface Pool {
   lpMint: PublicKey
   borrowableBaseMint: PublicKey,
   borrowableQuoteMint: PublicKey,
-
+  baseName: string,
+  quoteName: string,
 
   apr: number
   supply: string

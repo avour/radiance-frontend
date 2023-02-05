@@ -10,7 +10,9 @@ const poolData = [
         lpMint: new PublicKey("Cgk42VD6jbN1S7FTjZgMvWTkEJ17D9a3GyaC3Ng2X7vX"),
         borrowableBaseMint: new PublicKey("GNijf6kWp6juB91VcbsJ9iABrhjq3pKSTbQqWjMEzV6X"),
         borrowableQuoteMint: new PublicKey("E4zt1vi9m9qLcA6DdT7xHhRz9hAUDw4HPHQcdEmSdnsR"),
-        name: "SOL/USD", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 12,
+        name: "SOL/USDT", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 12,
+        baseName: "Solana (SOL)",
+        quoteName: "Tether USD (USDT)"
     },
     {
         poolId: 32322443,
@@ -18,7 +20,9 @@ const poolData = [
         lpMint: new PublicKey("Af4W1HNpMqzVyFmTxa3aWUWQUyKzmDAGoU819Prbsapv"),
         borrowableBaseMint: new PublicKey("H6ouuizxz99CAkcB17C8pygAmSrg7YYGQXA2BKCYeums"),
         borrowableQuoteMint: new PublicKey("GME4vqpz5zsdocRN5nici8zns5SfGrVJJxJsBwNWbWtR"),
-        name: "BTC/USD", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 18
+        name: "BTC/USDC", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 18,
+        baseName: "Bitcoin (BTC)",
+        quoteName: "USDC Circle (USDC)"
     },
     {
         poolId: 32242323,
@@ -26,7 +30,9 @@ const poolData = [
         lpMint: new PublicKey("Af4W1HNpMqzVyFmTxa3aWUWQUyKzmDAGoU819Prbsapv"),
         borrowableBaseMint: new PublicKey("H6ouuizxz99CAkcB17C8pygAmSrg7YYGQXA2BKCYeums"),
         borrowableQuoteMint: new PublicKey("GME4vqpz5zsdocRN5nici8zns5SfGrVJJxJsBwNWbWtR"),
-        name: "AVAX/USD", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 7
+        name: "RAY/USDC", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 7,
+        baseName: "Raydium (RAY)",
+        quoteName: "USDC Circle (USDC)"
     },
     {
         poolId: 2322242323,
@@ -34,7 +40,9 @@ const poolData = [
         lpMint: new PublicKey("Af4W1HNpMqzVyFmTxa3aWUWQUyKzmDAGoU819Prbsapv"),
         borrowableBaseMint: new PublicKey("H6ouuizxz99CAkcB17C8pygAmSrg7YYGQXA2BKCYeums"),
         borrowableQuoteMint: new PublicKey("GME4vqpz5zsdocRN5nici8zns5SfGrVJJxJsBwNWbWtR"),
-        name: "AVAX/USD", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 7
+        name: "DOT/USDC", image1: SolanaLogo, image2: USDCLogo, supply: "2,534,000", apr: 7,
+        baseName: "Polkadot (DOT)",
+        quoteName: "USDC Circle (USDC)"
     },
 ]
 
