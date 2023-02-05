@@ -7,7 +7,7 @@
 </script>
 
 <template>
-    <div class="tw-max-w-5xl tw-mx-auto tw-flex tw-flex-col">
+    <div class="tw-max-w-6xl tw-mx-auto tw-flex tw-flex-col">
         <PoolCardContainer
             class="tw-mb-12"
             :poolData="poolData"

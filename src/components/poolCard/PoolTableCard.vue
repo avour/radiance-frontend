@@ -71,7 +71,7 @@ import USDC from "../../assets/usd-coin.png"
     padding: 1.5rem 1rem;
     border-radius: var(--radius);
     // width: calc(100% - 2rem);
-    background: rgba(0, 0, 0, 0.34);
+    background: rgba(0, 0, 0, 0.21);
   }
 
   .table_headers {

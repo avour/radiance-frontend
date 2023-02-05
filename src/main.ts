@@ -4,6 +4,7 @@ import "./styles/flex.css"
 import "./styles/utils.css"
 import "./styles/input.css"
 import "./style.css"
+import "./styles/fonts.css"
 import router from "./router/router"
 import App from './App.vue'
 
