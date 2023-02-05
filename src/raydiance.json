@@ -550,45 +550,6 @@
   ],
   "accounts": [
     {
-      "name": "BorrowablePool",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "interestRate",
-            "docs": [
-              "this is automatically determined by the program"
-            ],
-            "type": "u64"
-          }
-        ]
-      }
-    },
-    {
-      "name": "UserCollateralConfis",
-      "type": {
-        "kind": "struct",
-        "fields": [
-          {
-            "name": "user",
-            "type": "publicKey"
-          },
-          {
-            "name": "amount",
-            "docs": [
-              "amout of collateral the user has deposited",
-              "in the vailt"
-            ],
-            "type": "u64"
-          },
-          {
-            "name": "collateralNeeded",
-            "type": "u64"
-          }
-        ]
-      }
-    },
-    {
       "name": "LendingPool",
       "type": {
         "kind": "struct",
@@ -858,8 +819,5 @@
       "name": "IlliquidPool",
       "msg": "Not enough liquidity in the pool"
     }
-  ],
-  "metadata": {
-    "address": "2SnZowMwuMLoBeAeCFEWhjE12QoGd6ex8gR15TYhWyF5"
-  }
+  ]
 }

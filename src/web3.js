@@ -1,7 +1,7 @@
 
 import idl from "./raydiance.json";
 import * as anchor from "@project-serum/anchor";
-import { useWallet } from "@solana/wallet-adapter-vue";
+// import { useWallet } from "@solana/wallet-adapter-vue";
 
 import { Connection } from "@solana/web3.js";
 
@@ -14,10 +14,10 @@ export const preflightCommitment = "processed";
 
 const connection = new Connection("");
 const provider = new anchor.AnchorProvider (connection, wallet, anchor.AnchorProvider.defaultOptions());
-const program = new anchor.Program(idl, programID, provider);
 
+const getPdaParams = async (connection, user, serum_market, lp_mint) => {
+    const program = new anchor.Program(idl, programID, provider);
 
-const getPdaParams = async (connection: anchor.web3.Connection, user: anchor.web3.PublicKey, serum_market: anchor.web3.PublicKey, lp_mint: anchor.web3.PublicKey): Promise<PDAParameters> => {
     const uid = new anchor.BN(parseInt((Date.now() / 1000).toString()));
     const uidBuffer = uid.toBuffer('le', 8);
 
