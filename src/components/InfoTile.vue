@@ -14,9 +14,11 @@
     <div>
         <p class="tw-text-sm tw-text-gray-300 tw-leading-tight">
             <span>{{ info.label }}</span>
-            <span><Tooltip class="tw-ml-2" :text="info.description">
-                <i class="fal fa-info-circle"></i>
-            </Tooltip></span>
+            <span class="tw-ml-1">
+                <button href="#" v-tooltip="info.description">
+                    <i class="fal fa-info-circle"></i>
+                </button>
+            </span>
         </p>
         <p class="tw-text-lg tw-text-gray-100">{{ info.value }}</p>
     </div>

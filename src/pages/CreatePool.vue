@@ -35,7 +35,10 @@ const onCreate = () => console.log(formData.value);
 
                         <!-- Safety Margin -->
                         <div class="tw-flex tw-flex-col tw-bg-green-400/10 tw-justify-between tw-rounded-xl mobile:tw-rounded-lg tw-py-3 tw-px-6 mobile:py-2 mobile:px-4 tw-cursor-text mb-5">
-                            <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Safety Margin:</span><span class="tw-ml-2"><i class="fal fa-info-circle"></i></span></div>
+                            <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium">
+                                <span>Safety Margin:</span>
+                                <span class="tw-ml-2"><button v-tooltip="'After a price swing of safety margin the value of the collateral will still be enough to back the loan.'"><i class="fal fa-info-circle"></i></button></span>
+                            </div>
                             <div class="tw-flex tw-cursor-text tw-items-center tw-w-full tw-py-1 mobile:tw-py-1 tw-font-medium">
                                 <div class="tw-flex tw-flex-grow tw-flex-shrink">
                                     <input autocomplete="off" class="tw-w-full tw-text-gray-200 tw-grow tw-overflow-hidden tw-text-ellipsis tw-bg-transparent border-none tw-outline-none block " :value="safetyMargin">
@@ -45,7 +48,10 @@ const onCreate = () => console.log(formData.value);
 
                         <!-- Liquidation Incentive -->
                         <div class="tw-flex tw-flex-col md:tw-items-end tw-bg-green-400/10 tw-justify-between tw-rounded-xl mobile:tw-rounded-lg tw-py-3 tw-px-6 mobile:py-2 mobile:px-4 tw-cursor-text mb-5">
-                            <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Liquidation Incentive:</span><span class="tw-ml-2"><i class="fal fa-info-circle"></i></span></div>
+                            <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium">
+                                <span>Liquidation Incentive:</span>
+                                <span class="tw-ml-2"><button v-tooltip="'A liquidator can repay a liquidatable loan and receive in exchange the 7 equivalent value of the loan multiplied by liquidation incentive in collateral seized from the borrower'"><i class="fal fa-info-circle"></i></button></span>
+                            </div>
                             <div class="tw-flex tw-cursor-text tw-items-center tw-w-full tw-py-1 mobile:tw-py-1 tw-font-medium">
                                 <div class="tw-flex tw-flex-grow tw-flex-shrink">
                                     <input autocomplete="off" class="tw-w-full tw-text-gray-200 tw-grow tw-overflow-hidden tw-text-ellipsis tw-bg-transparent border-none tw-outline-none block " :value="liquidIncentive">
@@ -56,7 +62,7 @@ const onCreate = () => console.log(formData.value);
 
                     <!-- Market ID -->
                     <div class="tw-flex tw-flex-col tw-bg-green-400/10 tw-justify-between tw-rounded-xl mobile:tw-rounded-lg tw-py-3 tw-px-6 mobile:py-2 mobile:px-4 tw-cursor-text">
-                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Market ID:</span><span class="tw-ml-2"><i class="fal fa-info-circle"></i></span></div>
+                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Market ID:</span><span class="tw-ml-2"><button v-tooltip=""><i class="fal fa-info-circle"></i></button></span></div>
                         <div class="tw-flex tw-cursor-text tw-items-center tw-w-full tw-py-1 mobile:tw-py-1 tw-font-medium">
                             <div class="tw-flex tw-flex-grow tw-flex-shrink">
                                 <input autocomplete="off" class="tw-w-full tw-text-gray-200 tw-grow tw-overflow-hidden tw-text-ellipsis tw-bg-transparent border-none tw-outline-none block " v-model="formData.marketID">
@@ -66,7 +72,7 @@ const onCreate = () => console.log(formData.value);
 
                     <!-- LP Mint -->
                     <div class="tw-flex tw-flex-col tw-bg-green-400/10 tw-justify-between tw-rounded-xl mobile:tw-rounded-lg tw-py-3 tw-px-6 mobile:py-2 mobile:px-4 tw-cursor-text">
-                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>LP Mint:</span><span class="tw-ml-2"><i class="fal fa-info-circle"></i></span></div>
+                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>LP Mint:</span><span class="tw-ml-2"><button v-tooltip=""><i class="fal fa-info-circle"></i></button></span></div>
                         <div class="tw-flex tw-cursor-text tw-items-center tw-w-full tw-py-1 mobile:tw-py-1 tw-font-medium">
                             <div class="tw-flex tw-flex-grow tw-flex-shrink">
                                 <input autocomplete="off" class="tw-w-full tw-text-gray-200 tw-grow tw-overflow-hidden tw-text-ellipsis tw-bg-transparent border-none tw-outline-none block " v-model="formData.lpMint">
@@ -76,7 +82,7 @@ const onCreate = () => console.log(formData.value);
 
                     <!-- Borrowable Base mint -->
                     <div class="tw-flex tw-flex-col tw-bg-green-400/10 tw-justify-between tw-rounded-xl mobile:tw-rounded-lg tw-py-3 tw-px-6 mobile:py-2 mobile:px-4 tw-cursor-text">
-                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Borrowable Base Mint:</span><span class="tw-ml-2"><i class="fal fa-info-circle"></i></span></div>
+                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Borrowable Base Mint:</span><span class="tw-ml-2"><button v-tooltip=""><i class="fal fa-info-circle"></i></button></span></div>
                         <div class="tw-flex tw-cursor-text tw-items-center tw-w-full tw-py-1 mobile:tw-py-1 tw-font-medium">
                             <div class="tw-flex tw-flex-grow tw-flex-shrink">
                                 <input autocomplete="off" class="tw-w-full tw-text-gray-200 tw-grow tw-overflow-hidden tw-text-ellipsis tw-bg-transparent border-none tw-outline-none block " v-model="formData.baseMint">
@@ -86,7 +92,7 @@ const onCreate = () => console.log(formData.value);
 
                     <!-- Borrowable Quote Mint -->
                     <div class="tw-flex tw-flex-col tw-bg-green-400/10 tw-justify-between tw-rounded-xl mobile:tw-rounded-lg tw-py-3 tw-px-6 mobile:py-2 mobile:px-4 tw-cursor-text">
-                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Borrowable Quote Mint:</span><span class="tw-ml-2"><i class="fal fa-info-circle"></i></span></div>
+                        <div class="mobile:tw-text-sm tw-text-gray-300 tw-font-medium"><span>Borrowable Quote Mint:</span><span class="tw-ml-2"><button v-tooltip=""><i class="fal fa-info-circle"></i></button></span></div>
                         <div class="tw-flex tw-cursor-text tw-items-center tw-w-full tw-py-1 mobile:tw-py-1 tw-font-medium">
                             <div class="tw-flex tw-flex-grow tw-flex-shrink">
                                 <input autocomplete="off" class="tw-w-full tw-text-gray-200 tw-grow tw-overflow-hidden tw-text-ellipsis tw-bg-transparent border-none tw-outline-none block " v-model="formData.quoteMint">
