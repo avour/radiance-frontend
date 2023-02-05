@@ -16,7 +16,6 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
   } */
-@import "@fortawesome/fontawesome-free/css/all.min.css";
 /* purgecss start ignore */
 @tailwind base;
 

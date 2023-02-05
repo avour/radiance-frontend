@@ -1,0 +1,54 @@
+@font-face {
+    font-family: "UltaBold";
+    src: local("Bold"), url(../assets/fonts/GTWalsheimPro-UltraBold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Bold";
+    src: local("Bold"), url(../assets/fonts/GTWalsheimPro-Bold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Medium";
+    src: local("Medium"), url(../assets/fonts/GTWalsheimPro-Medium.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Normal";
+    src: local("Normal"), url(../assets/fonts/GTWalsheimPro-Medium.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Light";
+    src: local("Light"), url(../assets/fonts/GTWalsheimPro-Light.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Thin";
+    src: local("Thin"), url(../assets/fonts/GTWalsheimPro-Thin.ttf) format("truetype");
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-family: UltaBold, serif;
+}
+
+h2, h3 {
+    font-family: Medium, serif;
+}
+
+h4, h5 {
+    font-family: Normal, serif;
+}
+
+p, span, ::placeholder {
+    font-family: Light, serif;
+}
+
+
+
+
+
+
+
+
