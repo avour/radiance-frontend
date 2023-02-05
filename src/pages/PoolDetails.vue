@@ -282,36 +282,113 @@ const baseConfig = [
                 </GlowContainer>
 
                 <!-- Switch Tab -->
-                <div
-                    class="tw-flex tw-flex-none tw-self-center tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 tw-text-grey-900 tw-text-sm tw-font-semiBold  tw-text-white cardBackground">
-                    <button
-                        class="tw-px-4 tw-py-2 tw-rounded-3xl tw-bg-gradient-to-r tw-from-[#20BF55] tw-to-[#01BAEF]">Borrow</button>
-                    <button class="tw-px-4 tw-py-2">Lend</button>
-                </div>
+                <tabs
+                    :options="{ useUrlFragment: false }"
+                    wrapper-class="tw-self-center tw-no-underline"
+                    nav-item-class="tw-px-4 tw-py-2 tw-rounded-3xl tw-no-underline"
+                    nav-item-link-class="tw-no-underline tw-text-grey-900 tw-text-sm tw-font-semiBold  tw-text-white"
+                    nav-item-link-disabled-class="tw-no-underline"
+                    nav-item-active-class="tw-rounded-3xl tw-bg-gradient-to-r tw-from-[#20BF55] tw-to-[#01BAEF]"
+                    nav-class="tw-flex tw-flex-grow-0 tw-justify-center tw-mb-8 tw-gap-1 tw-rounded-full tw-p-1 cardBackground"
+                    >
+                    <tab name="Borrow">
+                        <Modal v-model="isShow" :close="closeModal">
+                            <div class="modal ">
+                                <p class="tw-mb-2">Enter Amount</p>
 
-                <GlowContainer class="tw-w-[min(700px,150%)] tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
-                    <!-- If the option changed modal component the name
-                      <MyModal>
-                      -->
-                    <Modal v-model="isShow" :close="() => { isShow = false }">
-                        <div class="modal ">
-                            <p class="tw-mb-2">Enter Amount</p>
-
-                            <div class="input_container">
-                                <input class="input" v-model="amount" placeholder="Input Amount" />
+                                <div class="input_container">
+                                    <input class="input" v-model="amount" placeholder="Input Amount" />
+                                </div>
+                                <button @click="closeModal"
+                                    class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg tw-mt-4">Continue</button>
                             </div>
-                            <button @click="closeModal"
-                                class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg tw-mt-4">Continue</button>
-                        </div>
-                    </Modal>
-
-
-                    <div
-                        class="cardBackground tw-h-full tw-w-full tw-py-8 tw-px-6 tw-rounded-3xl tw-p-5 tw-overflow-hidden">
-                        <div class="tw-w-full tw-flex tw-flex-col tw-rounded-xl tw-p-5">
-                            <div class="tw-w-full tw-grid tw-grid-cols-4 tw-gap-5 tw-mb-3">
-                                <div v-for="info, i in borrowData" :key="i">
-                                    <InfoTile :info="info" />
+                        </Modal>
+                        <GlowContainer class="tw-w-[min(700px,150%)] tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
+                            <div
+                                class="cardBackground tw-h-full tw-w-full tw-py-8 tw-px-6 tw-rounded-3xl tw-p-5 tw-overflow-hidden">
+                                <div class="tw-w-full tw-flex tw-flex-col tw-rounded-xl tw-p-5">
+                                    <div class="tw-w-full tw-grid tw-grid-cols-4 tw-gap-5 tw-mb-3">
+                                        <div v-for="info, i in borrowData" :key="i">
+                                            <InfoTile :info="info" />
+                                        </div>
+                                    </div>
+                                    <div class="tw--gray-800 tw-border-t tw-border-gray-600 tw-my-3"></div>
+                                    <!-- Info Table -->
+                                    <div class="tw-w-full tw-mb-3 tw-text-gray-100">
+                                        <table class="infoTable tw-w-full tw-table-auto tw-border-collapse">
+                                            <tbody>
+                                                <tr class="tw-border-b tw-border-gray-600">
+                                                    <td>USDT/MATIC</td>
+                                                    <td>
+                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</p>
+                                                        <p class="tw-text-medium">$0</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</p>
+                                                        <p class="tw-text-medium">$0</p>
+                                                    </td>
+                                                    <td>
+                                                        <div
+                                                            class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
+                                                            <button @click="() => { event = Events.deposit; showModal() }"
+                                                                class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Deposit</button>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div
+                                                            class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
+                                                            <button @click="() => { event = Events.withdraw; showModal() }"
+                                                                class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
+                                                            <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Leverage</button> -->
+                                                            <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Delvage</button> -->
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tw-border-b tw-border-gray-600">
+                                                    <td>MATIC</td>
+                                                    <td>
+                                                        <span
+                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
+                                                        <span class="tw-text-medium">$0</span>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</span><br />
+                                                        <span class="tw-text-medium">$0</span>
+                                                    </td>
+                                                    <td class="end">
+                                                        <button
+                                                            class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Borrow</button>
+                                                    </td>
+                                                    <td class="end">
+                                                        <button
+                                                            class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Repay</button>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tw-border-b tw-border-gray-600">
+                                                    <td>USDT</td>
+                                                    <td>
+                                                        <span
+                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Deposited</span><br />
+                                                        <span class="tw-text-medium">$0</span>
+                                                    </td>
+                                                    <td>
+                                                        <span
+                                                            class="tw-text-sm tw-text-gray-300 tw-leading-tighter">Borrowed</span><br />
+                                                        <span class="tw-text-medium">$0</span>
+                                                    </td>
+                                                    <td class="end">
+                                                        <button
+                                                            class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Borrow</button>
+                                                    </td>
+                                                    <td class="end">
+                                                        <button
+                                                            class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Repay</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             <div class="tw--gray-800 tw-border-t tw-border-gray-600 tw-my-3"></div>
@@ -396,9 +473,11 @@ const baseConfig = [
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
-                </GlowContainer>
+                        </GlowContainer>
+                    </tab>
+                </tabs>
+
+
             </div>
         </div>
     </div>

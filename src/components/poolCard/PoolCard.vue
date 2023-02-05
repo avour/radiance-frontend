@@ -14,9 +14,13 @@ defineProps<{
   <div class="pool_card flex_column">
     <h3 class="pool_name">{{pairName}}</h3>
 
-    <div class="pool_image flex_row_center">
-      <img :src="token1Image" :alt="pairName" />
-      <img :src="token2Image" :alt="pairName" />
+    <div class="flex_row_center pool_image">
+      <div class="tw-w-12 tw-h-12 tw-p-1 tw-rounded-full">
+        <img :src="token1Image" :alt="pairName" />
+      </div>
+      <div class="tw-w-12 tw-h-12 tw-p-1 tw-rounded-full">
+        <img :src="token2Image" :alt="pairName" />
+      </div>
     </div>
 
     <div class="more_info desktop_only flex_row">
@@ -55,7 +59,7 @@ defineProps<{
 .pool_card:hover {
   cursor: pointer;
   transition: all ease-in 0.2s;
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .pool_name {
@@ -70,8 +74,12 @@ defineProps<{
   background: var(--primaryColor);
 }
 
+.pool_card.flex_column:hover {
+  background: rgba(0, 0, 0, 0.32);
+}
+
 .pool_image {
-  padding-left: 1.7rem;
+  padding-left: 1.2rem;
 }
 
 .pool_image img {
@@ -86,7 +94,7 @@ defineProps<{
 
 .pool_image img:last-of-type {
   position: relative;
-  left: -2.5rem;
+  left: -1.5rem;
 }
 
 .pool_image img {

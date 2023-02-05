@@ -10,10 +10,8 @@ const { connected } = useWallet();
 <template>
   <nav class="navigation">
     <div class="space_between">
-      <h1><RouterLink to="/">RADIANCE</RouterLink></h1>
-      <div class="row_flex_end">
-        <wallet-multi-button dark></wallet-multi-button>
-      </div>
+      <h1><RouterLink to="/pools">RADIANCE</RouterLink></h1>
+      <wallet-multi-button dark></wallet-multi-button>
     </div>
   </nav>
 </template>
@@ -40,5 +38,4 @@ const { connected } = useWallet();
       width: 50%;
     }
   }
-
 </style>
