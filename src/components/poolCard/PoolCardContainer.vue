@@ -15,7 +15,8 @@ export interface Pool {
   lpMint: PublicKey
   borrowableBaseMint: PublicKey,
   borrowableQuoteMint: PublicKey,
-
+  baseName: string,
+  quoteName: string,
 
   apr: number
   supply: string
@@ -81,6 +82,7 @@ const onTapPool = async (pool: Pool) => {
     <div class="section_title tw-mb-3">
       <h2 class="tw-text-xl tw-font-bold tw-text-white">{{sectionTitle}}</h2>
     </div>
+
     <section class="pool_card_container">
       <PoolCard
           v-for="pool, i in poolData"
@@ -99,9 +101,9 @@ const onTapPool = async (pool: Pool) => {
 
 <style scoped>
   .section_title {
-    color: black;
-    /* margin-top: var(--gap1); */
-    /* padding: .5rem var(--gutter); */
+    color: white;
+    font-size: 1.3rem;
+     margin-top: 2.5rem;
   }
 
   .pool_card_container {

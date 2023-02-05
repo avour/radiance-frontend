@@ -24,6 +24,11 @@ const { connected } = useWallet();
     width: 100%;
   }
 
+  .navigation h1 a {
+    color: white;
+    text-decoration: none;
+  }
+
   .space_between div {
     width: 20%;
   }

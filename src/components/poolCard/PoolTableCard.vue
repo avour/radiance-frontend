@@ -1,6 +1,35 @@
 <script setup lang="ts">
-import Sol from "../../assets/Solana_logo.png"
-import USDC from "../../assets/usd-coin.png"
+import { useRouter } from 'vue-router';
+const router = useRouter()
+import {PublicKey} from "@solana/web3.js";
+defineProps<{
+  pool: object,
+}>()
+
+export interface Pool {
+  poolId: number,
+  serumMakert: PublicKey
+  lpMint: PublicKey
+  borrowableBaseMint: PublicKey,
+  borrowableQuoteMint: PublicKey,
+  baseName: string,
+  quoteName: string,
+
+  apr: number
+  supply: string
+  name: string
+  image1: string
+  image2: string
+
+}
+
+const handleClick = (pool: Pool) => {
+  router.push({
+    name: 'pool-details',
+    params: { id: pool.poolId, title: pool.name.replaceAll(/[^a-zA-Z0-9 ]/g,'').toLowerCase() },
+  });
+}
+
 </script>
 
 
@@ -23,17 +52,17 @@ import USDC from "../../assets/usd-coin.png"
 <!--  </tr>-->
 
 
-  <div class="table_pool_card">
-    <div class="table_headers flex_row">
+  <div class="table_pool_card" @click="handleClick(pool)">
+    <div class="table_headers space_between">
       <div class="pool_name flex_row">
         <div class="flex_row_center">
-          <img :src="Sol" width="34" alt="token" />
-          <img :src="USDC" width="34" alt="token" />
+          <img :src="pool.image1" width="34" alt="token" />
+          <img :src="pool.image2" width="34" alt="token" />
         </div>
-        <h4>SOL/USD</h4>
+        <h4>{{pool.name}}</h4>
       </div>
       <div class="supply">
-        <h5>$4,724,544</h5>
+        <h5>${{pool.supply}}</h5>
       </div>
       <div>
         <h5>$143,104</h5>
@@ -71,14 +100,19 @@ import USDC from "../../assets/usd-coin.png"
     padding: 1.5rem 1rem;
     border-radius: var(--radius);
     // width: calc(100% - 2rem);
-    background: rgba(0, 0, 0, 0.34);
+    background: rgba(0, 0, 0, 0.21);
+  }
+
+  .table_pool_card:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.37);
   }
 
   .table_headers {
     border-radius: var(--smRadius);
     width: calc(100% - 2rem);
     padding: 0 1rem;
-    color: var(--darkText);
+    color: white;
 
     h5 {
       font-size: .9rem;
@@ -90,7 +124,7 @@ import USDC from "../../assets/usd-coin.png"
 
     > div {
       display: flex;
-      width: calc(17% - .5rem);
+      //width: calc(17% - .5rem);
     }
 
     div {

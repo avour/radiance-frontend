@@ -59,22 +59,27 @@ defineProps<{
 .pool_card:hover {
   cursor: pointer;
   transition: all ease-in 0.2s;
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .pool_name {
   font-size: 1rem;
+  color: var(--hoverColor);
 }
 
 .pool_card.flex_column {
-  width: calc(25% - 2.8rem);
-  padding: .2rem 1rem 1.5rem;
+  width: calc(27.5% - 2.8rem);
+  padding: 1rem 1rem 1.5rem;
   border-radius: var(--radius);
   background: var(--primaryColor);
 }
 
+.pool_card.flex_column:hover {
+  background: rgba(0, 0, 0, 0.32);
+}
+
 .pool_image {
-  padding-left: 1.7rem;
+  padding-left: 1.2rem;
 }
 
 .pool_image img {
@@ -89,12 +94,13 @@ defineProps<{
 
 .pool_image img:last-of-type {
   position: relative;
-  left: -2.5rem;
+  left: -1.5rem;
 }
 
 .pool_image img {
-  width: 90px;
-  height: 90px;
+  width: 75px;
+  height: 75px;
+  margin-top: 1rem;
   border-radius: 50%;
 }
 
@@ -125,7 +131,8 @@ defineProps<{
 .more_info {
   gap: .4rem .3rem;
   margin-top: 1.8rem;
-  color: var(--hoverColor);
+  color: white;
+  /*color: var(--hoverColor);*/
 }
 
 .more_info_details {
