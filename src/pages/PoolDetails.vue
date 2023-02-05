@@ -14,8 +14,16 @@ import { toast } from 'vue3-toastify';
 
 
 import { ref } from 'vue';
+enum Events {
+    none,
+    deposit,
+    withdraw
+}
+
 
 const isShow = ref(false);
+const amount = ref("");
+const event = ref(Events.none)
 
 function showModal() {
     isShow.value = true;
@@ -23,14 +31,23 @@ function showModal() {
 
 function closeModal() {
     isShow.value = false;
+    console.log(amount);
+    if (!amount.value || event.value == Events.none) {
+        return
+    }
+    switch (event.value) {
+        case Events.deposit:
+            depositCollateral();
+            break;
+        case Events.withdraw:
+            withdrawCollateral();
+            break;
+        default:
+            break;
+    }
+    event.value = Events.deposit
+
 }
-
-// return {
-//     isShow,
-//     showModal,
-//     closeModal,
-// };
-
 
 
 
@@ -41,6 +58,111 @@ const { program, wallet, provider } = workspace;
 let pool: Pool = poolData.find((value): boolean => {
     return value.poolId == parseInt(route.params.id.toString());
 })!
+
+// let userCollateralConfig = await program.value account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
+
+const depositCollateral = async () => {
+
+    const toastId = toast.loading('Processing Transaction...');
+    let signature = '';
+
+    try {
+        // const poolId = parseInt((Date.now() / 1000).toString());
+        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
+        console.log(`Deposit Collateral`);
+
+        let userLpTokenAccount = await getAssociatedTokenAddress(
+            pool.lpMint,
+            wallet.value!.publicKey
+        );
+
+        // Initialize mint account and fund the account
+        signature = await program.value.methods.depositCollateral({
+            poolId: pda.poolID,
+            amount: new anchor.BN(amount.value)
+        }).accounts({
+            lendingPool: pda.lendingPoolKey,
+            collateralVault: pda.collateralVault,
+            userCollecteralConfig: pda.userCollateralConfigKey,
+
+            userLpTokenAccount: userLpTokenAccount,
+            lpMint: pool.lpMint,
+            user: wallet.value!.publicKey,
+
+            serumMarket: pool.serumMakert,
+            tokenProgram: TOKEN_PROGRAM_ID,
+            rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+        })
+            .rpc();
+    } catch (error) {
+        console.log(`Transaction Error\n${error}`)
+        toast.remove(toastId)
+        await new Promise(resolve => setTimeout(resolve, 10));
+        toast.error(`Transaction Error\n${error}`, {
+            autoClose: 9000
+        })
+        return;
+    }
+
+    toast.remove(toastId)
+    await new Promise(resolve => setTimeout(resolve, 10));
+    toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
+        autoClose: 9000,
+        dangerouslyHTMLString: true,
+    })
+}
+
+
+const withdrawCollateral = async () => {
+
+    const toastId = toast.loading('Processing Transaction...');
+    let signature = '';
+
+    try {
+        // const poolId = parseInt((Date.now() / 1000).toString());
+        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
+        console.log(`Deposit Collateral`);
+
+        let userLpTokenAccount = await getAssociatedTokenAddress(
+            pool.lpMint,
+            wallet.value!.publicKey
+        );
+
+        // Initialize mint account and fund the account
+        signature = await program.value.methods.withdrawCollateral({
+            poolId: pda.poolID,
+            amount: new anchor.BN(amount.value)
+        }).accounts({
+            lendingPool: pda.lendingPoolKey,
+            collateralVault: pda.collateralVault,
+            userCollecteralConfig: pda.userCollateralConfigKey,
+
+            userLpTokenAccount: userLpTokenAccount,
+            lpMint: pool.lpMint,
+            user: wallet.value!.publicKey,
+            serumMarket: pool.serumMakert,
+
+            tokenProgram: TOKEN_PROGRAM_ID,
+            rent: anchor.web3.SYSVAR_RENT_PUBKEY,
+        })
+            .rpc();
+    } catch (error) {
+        console.log(`Transaction Error\n${error}`)
+        toast.remove(toastId)
+        await new Promise(resolve => setTimeout(resolve, 10));
+        toast.error(`Transaction Error\n${error}`, {
+            autoClose: 9000
+        })
+        return;
+    }
+
+    toast.remove(toastId)
+    await new Promise(resolve => setTimeout(resolve, 10));
+    toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
+        autoClose: 9000,
+        dangerouslyHTMLString: true,
+    })
+}
 
 const quoteConfig = [
     {
@@ -96,64 +218,6 @@ const baseConfig = [
         type: "percent"
     },
 ]
-// let userCollateralConfig = await program.value account.userCollateralConfig.fetch(pda.userCollateralConfigKey);
-
-
-const onDeposit = async () => {
-
-    const toastId = toast.loading('Please wait...');
-    let signature = '';
-
-    try {
-        // const poolId = parseInt((Date.now() / 1000).toString());
-        const pda = await getPdaParams(workspace, pool.poolId, pool.serumMakert);
-        console.log(`Deposit Collateral`);
-
-        let userLpTokenAccount = await getAssociatedTokenAddress(
-            pool.lpMint,
-            wallet.value!.publicKey
-        );
-        let amount = new anchor.BN("30000")
-
-        // Initialize mint account and fund the account
-        signature = await program.value.methods.depositCollateral({
-            poolId: pda.poolID,
-            amount,
-        }).accounts({
-            lendingPool: pda.lendingPoolKey,
-            collateralVault: pda.collateralVault,
-            userCollecteralConfig: pda.userCollateralConfigKey,
-
-            userLpTokenAccount: userLpTokenAccount,
-            lpMint: pool.lpMint,
-            user: wallet.value!.publicKey,
-
-            serumMarket: pool.serumMakert,
-            tokenProgram: TOKEN_PROGRAM_ID,
-            rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-        })
-            .rpc();
-    } catch (error) {
-        console.log(`Transaction Error\n${error}`)
-        toast.remove(toastId)
-        await new Promise(resolve => setTimeout(resolve, 10));
-        toast.error(`Transaction Error\n${error}`, {
-            autoClose: 9000
-        })
-        return;
-    }
-
-    toast.remove(toastId)
-    await new Promise(resolve => setTimeout(resolve, 10));
-    toast.success(`Deposit Successful\nView on SolScan <a href='https://solscan.io/tx/${signature}?cluster=devnet' target='_blank'>view</a>`, {
-        autoClose: 9000,
-        dangerouslyHTMLString: true,
-    })
-
-}
-
-
-// let activeTab: number = ref(0);
 
 </script>
 
@@ -209,16 +273,18 @@ const onDeposit = async () => {
                 </div>
 
                 <GlowContainer class="tw-w-[min(700px,150%)] tw-rounded-[21.2px] tw-p-[1px] tw-self-center">
-                    <p>
-                        <button @click="showModal">Show modal</button>
-                    </p>
                     <!-- If the option changed modal component the name
                       <MyModal>
                       -->
                     <Modal v-model="isShow" :close="closeModal">
-                        <div class="modal">
-                            <p>Hello</p>
-                            <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
+                        <div class="modal ">
+                            <p class="tw-mb-2">Enter Amount</p>
+
+                            <div class="input_container">
+                                <input class="input" v-model="amount" placeholder="Input Amount" />
+                            </div>
+                            <button @click="closeModal"
+                                class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg tw-mt-4">Continue</button>
                         </div>
                     </Modal>
 
@@ -249,17 +315,19 @@ const onDeposit = async () => {
                                             <td>
                                                 <div
                                                     class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                    <button @click="onDeposit()"
+                                                    <button @click="() => { event = Events.deposit; showModal() }"
                                                         class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Deposit</button>
+                                                    <button
+                                                        class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Leverage</button>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div
                                                     class="tw-flex tw-flex-col tw-gap-[5px] tw-items-end tw-justify-center">
-                                                    <button
+                                                    <button @click="() => { event = Events.withdraw; showModal() }"
                                                         class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Withdraw</button>
-                                                    <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Leverage</button> -->
-                                                    <!-- <button class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Delvage</button> -->
+                                                    <button
+                                                        class="tw-text-sm tw-px-3 tw-py-1 tw-bg-blue-600 tw-rounded-lg">Delvage</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -332,7 +400,7 @@ const onDeposit = async () => {
 }
 
 .modal {
-    width: 300px;
+    width: 400px;
     padding: 30px;
     box-sizing: border-box;
     background-color: #fff;
