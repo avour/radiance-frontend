@@ -14,9 +14,3 @@ const app = createApp(App)
 app.use(router)
 app.use(SolanaWallets, walletOptions)
 app.mount('#app')
-
-
-
-createApp(App)
-
-    .mount('#app')
