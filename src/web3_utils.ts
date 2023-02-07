@@ -18,7 +18,8 @@ import {
 } from "@solana/spl-token";
 import { Buffer } from 'buffer';
 
-
+// @ts-ignore
+window.Buffer = Buffer;
 
 const LP_MINT = new PublicKey("ELinmEgCTWXhHChfdp4pdgEraypESJbAiXd4aYNx1Lry");
 const BORROWABLE_BASE_MINT = new PublicKey("H6ouuizxz99CAkcB17C8pygAmSrg7YYGQXA2BKCYeums");
